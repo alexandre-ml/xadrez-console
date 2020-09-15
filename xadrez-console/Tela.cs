@@ -7,14 +7,14 @@ namespace xadrez_console
     {
         public static void imprimirTabuleiro(Tabuleiro tabuleiro)
         {
-            for(int i = 0; i < tabuleiro.linhas; i++)
+            for(int i = 0; i < tabuleiro.Linhas; i++)
             {
-                for (int j = 0; j < tabuleiro.colunas; j++)
+                for (int j = 0; j < tabuleiro.Colunas; j++)
                 {
-                    if (tabuleiro.peca(i, j) == null)
+                    if (tabuleiro.GetPeca(i, j) == null)
                         Console.Write("- ");
                     else
-                        Console.Write(tabuleiro.peca(i, j));
+                        Console.Write(tabuleiro.GetPeca(i, j));
                 }
                 Console.WriteLine();
             }
