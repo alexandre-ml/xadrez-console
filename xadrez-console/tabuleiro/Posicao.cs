@@ -14,6 +14,12 @@
         public override string ToString()
         {
             return Linha + ", " + Coluna;
-        }        
+        }
+        
+        public void AtualizaPosicao(int linha, int coluna)
+        {
+            Linha = linha;
+            Coluna = coluna;
+        }
     }
 }

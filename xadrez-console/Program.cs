@@ -8,21 +8,45 @@ namespace xadrez_console
     {
         static void Main(string[] args)
         {
-            try
+            Partida partida = new Partida();
+            while (!partida.Terminada)
             {
-                Tabuleiro tabuleiro = new Tabuleiro(8, 8);
+                try
+                {
+                    Console.Clear();
+                    Tela.ImprimirPartida(partida);
 
-                tabuleiro.PosicionarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(0, 0));
-                tabuleiro.PosicionarPeca(new Torre(tabuleiro, Cor.Preta), new Posicao(1, 3));
-                tabuleiro.PosicionarPeca(new Rei(tabuleiro, Cor.Preta), new Posicao(0, 9));
 
-                Tela.imprimirTabuleiro(tabuleiro);
+                    Console.Write("\nOrigem: ");
+                    Posicao origem = Tela.LerPosicaoXadrez().ToPosicao();
+                    partida.ValidarPosicaoOrigem(origem);
+
+                    //marcar as posições possiveis que a peça da origem possa se movimentar
+                    bool[,] movimentos = partida.Tabuleiro.GetPeca(origem).MovimentosPossiveis();
+
+                    Console.Clear();
+                    Tela.ImprimirTabuleiro(partida.Tabuleiro, movimentos);
+
+                    Console.WriteLine();
+                    Console.Write("Destino: ");
+                    Posicao dest = Tela.LerPosicaoXadrez().ToPosicao();
+                    partida.ValidarPosicaoDestino(origem, dest);
+
+                    partida.FazJogada(origem, dest);
+                }
+                catch (TabuleiroException e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                    Console.ReadLine();
+                }
+
             }
-            catch (TabuleiroException e)
-            {
-                Console.WriteLine(e.Message);
-            }
-            //Console.ReadLine
+
         }
     }
 }
